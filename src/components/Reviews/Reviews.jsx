@@ -16,13 +16,13 @@ const Reviews = () => {
   return (
     <ul>
       {reviews.length ? (
-        reviews.map((item, index) => {
+        reviews.map(({ id, author, content }, index) => {
           return (
             <Review>
-              <ReviewItem key={item.id}>
-                {index + 1}) Author: {item.author}
+              <ReviewItem key={id}>
+                {index + 1}) Author: {author}
               </ReviewItem>
-              <ReviewText>{item.content}</ReviewText>
+              <ReviewText>{content}</ReviewText>
             </Review>
           );
         })

@@ -6,17 +6,15 @@ import { FilmItem, FilmList } from './MoviesPage.styled';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams('');
-  const [value, setValue] = useState('');
+
   const [searchResults, setSearchResults] = useState(
     () => JSON.parse(localStorage.getItem('searchResults')) ?? []
   );
-
+  const filmId = searchParams.get('filmId') ?? '';
   const handleSubmit = e => {
     e.preventDefault();
-    setValue('');
-    setSearchParams(`?filmId=${value}`);
 
-    fetchSearchMovies(value)
+    fetchSearchMovies(filmId)
       .then(({ results }) => setSearchResults(results))
       .catch(err => console.error(err));
   };
@@ -24,20 +22,23 @@ const MoviesPage = () => {
     localStorage.setItem('searchResults', JSON.stringify(searchResults));
   }, [searchResults]);
 
-  const handleChange = ({ target: { value } }) => {
-    setValue(value);
+  const updateQueryString = evt => {
+    if (evt.target.value === '') {
+      return setSearchParams({});
+    }
+    setSearchParams({ filmId: evt.target.value });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input type="text" value={value} onChange={handleChange} />
+      <Input type="text" value={filmId} onChange={updateQueryString} />
       <Button type="submit">Search</Button>
       <FilmList>
-        {searchResults.map((result, index) => {
+        {searchResults.map(({ id, title }, index) => {
           return (
-            <FilmItem key={result.id}>
-              <Link to={`/movies/${result.id}`}>
-                {index + 1}){result.title}
+            <FilmItem key={id}>
+              <Link to={`/movies/${id}`}>
+                {index + 1}){title}
               </Link>
             </FilmItem>
           );

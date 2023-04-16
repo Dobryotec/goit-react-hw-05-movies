@@ -14,20 +14,20 @@ const Cast = () => {
   return (
     <CastList>
       {cast &&
-        cast.map(item => {
+        cast.map(({ id, profile_path, name, character }) => {
           return (
             <>
-              <CastItem key={item.id}>
-                {item.profile_path ? (
+              <CastItem key={id}>
+                {profile_path ? (
                   <img
-                    src={`https://image.tmdb.org/t/p/w92${item.profile_path}`}
-                    alt={`${item.name}'s profile`}
+                    src={`https://image.tmdb.org/t/p/w92${profile_path}`}
+                    alt={`${name}'s profile`}
                   />
                 ) : (
                   <img src={'https://via.placeholder.com/92'} alt={''} />
                 )}
-                <p>{item.name}</p>
-                <p>Character: {item.character}</p>
+                <p>{name}</p>
+                <p>Character: {character}</p>
               </CastItem>
             </>
           );

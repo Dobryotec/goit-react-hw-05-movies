@@ -1,4 +1,4 @@
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { fetchMovieDetails } from 'components/services/FetchFilms';
 import {
@@ -16,7 +16,7 @@ import {
 } from './MovieDetailes.styled';
 import Skeleton from '../../components/Skeleton';
 
-const MovieDetails = ({ location }) => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
 
@@ -26,6 +26,8 @@ const MovieDetails = ({ location }) => {
       .catch(err => console.error(err));
   }, [movieId]);
 
+  const location = useLocation();
+
   if (!movieDetails) {
     return <Skeleton />;
   }
@@ -33,27 +35,27 @@ const MovieDetails = ({ location }) => {
 
   const backLinkHref = location.state?.from ?? '/movies';
   const releaseYear = new Date(movieDetails.release_date).getFullYear();
-
+  const { poster_path, title, overview, genres } = movieDetails;
   return (
     <div>
       <SectionFilm>
         <div>
           <StyledButton to={backLinkHref}>Go back</StyledButton>
           <StyledImg
-            src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-            alt={movieDetails.title}
+            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+            alt={title}
           />
         </div>
         <div>
           <SectionBody>
             <SectionBodyTitle>
-              {movieDetails.title}({releaseYear})
+              {title}({releaseYear})
             </SectionBodyTitle>
             <p>User Score: {userScore}</p>
             <SectionBodySubTitle> Overview</SectionBodySubTitle>
-            <SectionBodyText>{movieDetails.overview}</SectionBodyText>
+            <SectionBodyText>{overview}</SectionBodyText>
             <SectionBodySubTitle>Genres</SectionBodySubTitle>
-            <p>{movieDetails.genres.map(genre => genre.name).join(' ')}</p>
+            <p>{genres.map(genre => genre.name).join(' ')}</p>
           </SectionBody>
         </div>
       </SectionFilm>

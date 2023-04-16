@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchPopularFilms } from 'components/services/FetchFilms';
+import { useLocation } from 'react-router-dom';
 import {
   StyledLink,
   FilmItem,
@@ -13,15 +14,17 @@ const HomePage = () => {
       .catch(err => console.error(err));
   }, []);
 
+  const location = useLocation();
+  console.log(location);
   return (
     <>
       <FilmTitle>Trending today</FilmTitle>
       <ul>
-        {films.map((film, index) => {
+        {films.map(({ id, title }, index) => {
           return (
-            <FilmItem key={film.id}>
-              <StyledLink to={`/movies/${film.id}`}>
-                {index + 1}){film.title}
+            <FilmItem key={id}>
+              <StyledLink to={`/movies/${id}`} state={{ from: location }}>
+                {index + 1}){title}
               </StyledLink>
             </FilmItem>
           );
