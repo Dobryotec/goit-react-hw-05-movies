@@ -72,7 +72,9 @@ const MovieDetails = () => {
           <StyledLink to={'cast'} state={{ from: location }}>
             Cast
           </StyledLink>
-          <StyledLink to={'reviews'}>Reviews</StyledLink>
+          <StyledLink to={'reviews'} state={{ from: location }}>
+            Reviews
+          </StyledLink>
         </SectionNavInformation>
       </SectionInformation>
       <Suspense>
