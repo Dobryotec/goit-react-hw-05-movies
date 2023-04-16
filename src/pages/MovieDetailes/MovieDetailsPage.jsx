@@ -69,7 +69,9 @@ const MovieDetails = () => {
           Additional information
         </SectionInformationTitle>
         <SectionNavInformation>
-          <StyledLink to={'cast'}>Cast</StyledLink>
+          <StyledLink to={'cast'} state={{ from: location }}>
+            Cast
+          </StyledLink>
           <StyledLink to={'reviews'}>Reviews</StyledLink>
         </SectionNavInformation>
       </SectionInformation>
