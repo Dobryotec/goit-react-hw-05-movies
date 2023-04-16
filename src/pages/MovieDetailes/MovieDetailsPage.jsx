@@ -43,7 +43,11 @@ const MovieDetails = () => {
         <div>
           <StyledButton to={backLinkHref}>Go back</StyledButton>
           <StyledImg
-            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                : 'https://via.placeholder.com/500x750?text=No+Image+Available'
+            }
             alt={title}
           />
         </div>

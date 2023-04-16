@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovieCasts } from '../services/FetchFilms';
 import { useEffect, useState } from 'react';
 import { CastList, CastItem } from './Cast.styled';
+
 const Cast = () => {
   const [cast, setCast] = useState();
   const { movieId } = useParams();
@@ -10,7 +11,7 @@ const Cast = () => {
       .then(({ cast }) => setCast(cast))
       .catch(err => console.error(err));
   }, [movieId]);
-
+  console.log(cast);
   return (
     <CastList>
       {cast &&
@@ -18,14 +19,15 @@ const Cast = () => {
           return (
             <>
               <CastItem key={id}>
-                {profile_path ? (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w92${profile_path}`}
-                    alt={`${name}'s profile`}
-                  />
-                ) : (
-                  <img src={'https://via.placeholder.com/92'} alt={''} />
-                )}
+                <img
+                  src={
+                    profile_path
+                      ? `https://image.tmdb.org/t/p/w92${profile_path} `
+                      : 'https://via.placeholder.com/92'
+                  }
+                  alt={name}
+                />
+
                 <p>{name}</p>
                 <p>Character: {character}</p>
               </CastItem>

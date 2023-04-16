@@ -1,8 +1,9 @@
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchSearchMovies } from 'components/services/FetchFilms';
 import { Input, Button } from 'pages/MoviesPage/MoviesPage.styled';
-import { FilmItem, FilmList } from './MoviesPage.styled';
+
+import MoviesList from './MoviesList';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams('');
@@ -11,6 +12,7 @@ const MoviesPage = () => {
     () => JSON.parse(localStorage.getItem('searchResults')) ?? []
   );
   const filmId = searchParams.get('filmId') ?? '';
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -33,17 +35,7 @@ const MoviesPage = () => {
     <form onSubmit={handleSubmit}>
       <Input type="text" value={filmId} onChange={updateQueryString} />
       <Button type="submit">Search</Button>
-      <FilmList>
-        {searchResults.map(({ id, title }, index) => {
-          return (
-            <FilmItem key={id}>
-              <Link to={`/movies/${id}`}>
-                {index + 1}){title}
-              </Link>
-            </FilmItem>
-          );
-        })}
-      </FilmList>
+      <MoviesList searchResults={searchResults} />
     </form>
   );
 };
