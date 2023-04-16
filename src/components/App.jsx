@@ -1,11 +1,15 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { lazy } from 'react';
 
-import HomePage from '../pages/HomePage/HomePage';
-import MoviesPage from '../pages/MoviesPage/MoviesPage';
-import MovieDetailsPage from '../pages/MovieDetailes/MovieDetailsPage';
 import Layout from './Layout/Layout';
-import Cast from './Cast/Cast';
-import Reviews from './Reviews/Reviews';
+
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const MoviesPage = lazy(() => import('../pages/MoviesPage/MoviesPage'));
+const MovieDetailsPage = lazy(() =>
+  import('../pages/MovieDetailes/MovieDetailsPage')
+);
+const Cast = lazy(() => import('../components/Cast/Cast'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export const App = () => {
   const location = useLocation();

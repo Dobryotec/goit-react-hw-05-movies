@@ -15,6 +15,7 @@ import {
   StyledImg,
 } from './MovieDetailes.styled';
 import Skeleton from '../../components/Skeleton';
+import { Suspense } from 'react';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -68,7 +69,9 @@ const MovieDetails = () => {
           <StyledLink to={'reviews'}>Reviews</StyledLink>
         </SectionNavInformation>
       </SectionInformation>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
