@@ -1,5 +1,5 @@
 import { useParams, Outlet, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchMovieDetails } from 'components/services/FetchFilms';
 import {
   StyledButton,
@@ -28,20 +28,19 @@ const MovieDetails = () => {
   }, [movieId]);
 
   const location = useLocation();
-
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
   if (!movieDetails) {
     return <Skeleton />;
   }
   const userScore = Math.round(movieDetails.vote_average * 10) + '%';
 
-  const backLinkHref = location.state?.from ?? '/movies';
   const releaseYear = new Date(movieDetails.release_date).getFullYear();
   const { poster_path, title, overview, genres } = movieDetails;
   return (
     <div>
       <SectionFilm>
         <div>
-          <StyledButton to={backLinkHref}>Go back</StyledButton>
+          <StyledButton to={backLinkHref.current}>Go back</StyledButton>
           <StyledImg
             src={
               poster_path
