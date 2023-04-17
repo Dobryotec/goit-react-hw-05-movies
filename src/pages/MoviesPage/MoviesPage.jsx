@@ -7,42 +7,40 @@ import MoviesList from './MoviesList';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams('');
-
+  const [query, setQuery] = useState();
   const [searchResults, setSearchResults] = useState([]);
   const filmId = searchParams.get('filmId') ?? '';
 
   const handleSubmit = e => {
     e.preventDefault();
-    setSearchParams({ filmId: filmId });
-  };
-
-  // useEffect(() => {
-  //   if (!filmId) return;
-  //   fetchSearchMovies(filmId)
-  //     .then(({ results }) => setSearchResults(results))
-  //     .catch(err => console.error(err));
-  // }, [filmId]);
-
-  const updateQueryString = evt => {
-    if (evt.target.value === '') {
+    if (!query) {
       return setSearchParams({});
     }
-    setSearchParams({ filmId: evt.target.value });
+    setSearchParams({ filmId: query });
   };
 
-  const handleSearch = () => {
+  useEffect(() => {
     if (!filmId) return;
     fetchSearchMovies(filmId)
       .then(({ results }) => setSearchResults(results))
       .catch(err => console.error(err));
+  }, [filmId]);
+
+  // const updateQueryString = evt => {
+  //   if (evt.target.value === '') {
+  //     return setSearchParams({});
+  //   }
+  //   setSearchParams({ filmId: evt.target.value });
+  // };
+
+  const handleChange = e => {
+    setQuery(e.target.value);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input type="text" value={filmId} onChange={updateQueryString} />
-      <Button type="submit" onClick={handleSearch}>
-        Search
-      </Button>
+      <Input type="text" value={query} onChange={handleChange} />
+      <Button type="submit">Search</Button>
       <MoviesList searchResults={searchResults} />
     </form>
   );

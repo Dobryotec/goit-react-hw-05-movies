@@ -9,7 +9,7 @@ const MoviesList = ({ searchResults }) => {
       {searchResults.map(({ id, title }, index) => {
         return (
           <FilmItem key={id}>
-            <Link to={`/movies/${id}`} state={{ from: location }}>
+            <Link to={`/movies/${id}`}>
               {index + 1}){title}
             </Link>
           </FilmItem>
