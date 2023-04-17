@@ -13,14 +13,15 @@ const MoviesPage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setSearchParams({ filmId });
+    setSearchParams({ filmId: filmId });
   };
-  useEffect(() => {
-    if (!filmId) return;
-    fetchSearchMovies(filmId)
-      .then(({ results }) => setSearchResults(results))
-      .catch(err => console.error(err));
-  }, [filmId]);
+
+  // useEffect(() => {
+  //   if (!filmId) return;
+  //   fetchSearchMovies(filmId)
+  //     .then(({ results }) => setSearchResults(results))
+  //     .catch(err => console.error(err));
+  // }, [filmId]);
 
   const updateQueryString = evt => {
     if (evt.target.value === '') {
@@ -29,10 +30,19 @@ const MoviesPage = () => {
     setSearchParams({ filmId: evt.target.value });
   };
 
+  const handleSearch = () => {
+    if (!filmId) return;
+    fetchSearchMovies(filmId)
+      .then(({ results }) => setSearchResults(results))
+      .catch(err => console.error(err));
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Input type="text" value={filmId} onChange={updateQueryString} />
-      <Button type="submit">Search</Button>
+      <Button type="submit" onClick={handleSearch}>
+        Search
+      </Button>
       <MoviesList searchResults={searchResults} />
     </form>
   );
