@@ -4,6 +4,7 @@ import { FilmTitle } from 'pages/HomePage/HomePage.styled';
 import MovieList from '../../components/MovieList/MovieList';
 const HomePage = () => {
   const [films, setFilms] = useState([]);
+
   useEffect(() => {
     fetchPopularFilms()
       .then(({ results }) => setFilms(results))

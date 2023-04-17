@@ -1,8 +1,4 @@
-import {
-  FilmItem,
-  StyledLink,
-  FilmList,
-} from './MovieList.styled'
+import { FilmItem, StyledLink, FilmList } from './MovieList.styled';
 import { useLocation } from 'react-router-dom';
 
 const MovieList = ({ movies }) => {
