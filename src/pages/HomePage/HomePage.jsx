@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchPopularFilms } from 'components/services/FetchFilms';
 import { FilmTitle } from 'pages/HomePage/HomePage.styled';
-import HomeMovieList from './HomeMovieList';
+import MovieList from '../../components/MovieList/MovieList';
 const HomePage = () => {
   const [films, setFilms] = useState([]);
   useEffect(() => {
@@ -13,7 +13,7 @@ const HomePage = () => {
   return (
     <>
       <FilmTitle>Trending today</FilmTitle>
-      <HomeMovieList films={films} />
+      <MovieList movies={films} />
     </>
   );
 };

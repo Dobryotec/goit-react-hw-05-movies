@@ -1,12 +1,16 @@
-import { FilmItem, StyledLink } from './HomePage.styled';
+import {
+  FilmItem,
+  StyledLink,
+  FilmList,
+} from './MovieList.styled'
 import { useLocation } from 'react-router-dom';
 
-const HomeMovieList = ({ films }) => {
+const MovieList = ({ movies }) => {
   const location = useLocation();
   console.log(location);
   return (
-    <ul>
-      {films.map(({ id, title }, index) => {
+    <FilmList>
+      {movies.map(({ id, title }, index) => {
         return (
           <FilmItem key={id}>
             <StyledLink to={`/movies/${id}`} state={{ from: location }}>
@@ -15,8 +19,8 @@ const HomeMovieList = ({ films }) => {
           </FilmItem>
         );
       })}
-    </ul>
+    </FilmList>
   );
 };
 
-export default HomeMovieList;
+export default MovieList;

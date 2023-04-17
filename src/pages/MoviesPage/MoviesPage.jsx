@@ -2,8 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchSearchMovies } from 'components/services/FetchFilms';
 import { Input, Button } from 'pages/MoviesPage/MoviesPage.styled';
-
-import MoviesList from './MoviesList';
+import MovieList from '../../components/MovieList/MovieList';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams('');
@@ -26,13 +25,6 @@ const MoviesPage = () => {
       .catch(err => console.error(err));
   }, [filmId]);
 
-  // const updateQueryString = evt => {
-  //   if (evt.target.value === '') {
-  //     return setSearchParams({});
-  //   }
-  //   setSearchParams({ filmId: evt.target.value });
-  // };
-
   const handleChange = e => {
     setQuery(e.target.value);
   };
@@ -41,7 +33,7 @@ const MoviesPage = () => {
     <form onSubmit={handleSubmit}>
       <Input type="text" value={query} onChange={handleChange} />
       <Button type="submit">Search</Button>
-      <MoviesList searchResults={searchResults} />
+      <MovieList movies={searchResults} />
     </form>
   );
 };
